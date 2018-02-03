@@ -1,55 +1,42 @@
 package megogo;
 
-import com.google.gson.Gson;
+import com.jayway.restassured.response.Response;
 import megogo.responseLocalDateClasses.LocalTime;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Locale;
+
+import static com.jayway.restassured.RestAssured.get;
 
 public class ResponseLocalTimeHelper {
-    static HttpURLConnection connection = null;
-    static LocalTime responseQuery = null;
-    static String getQuery = null;
-    static ZoneId zoneId = null;
+    private static ZoneId zoneId = null;
+    private static ZonedDateTime localTime = null;
     final static String FORMAT_TYPE = "EEEE, MMMM d, y h:mm:ss a XXX";
 
-    public static ZonedDateTime getLocalTime(String urlStr) throws IOException, ParseException {
-        getQuery = urlStr;
-        connection = ConnectionHelper.startConnection(connection, getQuery);
-
-        StringBuffer responseString = new StringBuffer();
-
-        if (HttpURLConnection.HTTP_OK == connection.getResponseCode())
-        {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            while ((line = in.readLine())!= null) {
-                responseString.append(line);
-                responseString.append("\n");
-            }
-            Gson gson = new Gson();
-            responseQuery = gson.fromJson(responseString.toString(), LocalTime.class);
-        }
-        else {
-            System.out.println("fail:" + connection.getResponseCode()+"");
-        }
-        return convertStrToZoneDate(responseQuery.getData().getTimeLocal());
+    public static ZoneId getZoneId() {
+        return zoneId;
     }
 
-    public static ZonedDateTime convertStrToZoneDate (String string)
-    {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_TYPE);
-        ZonedDateTime zd =   ZonedDateTime.parse(string, formatter);
-        zoneId = zd.getZone();
-        return zd;
+    public static ZonedDateTime getLocalTime() {
+        return localTime;
+    }
+
+    public static void setLocalTime(String urlStr) {
+        Response response = get(urlStr);
+
+        if (response.statusCode()==200){
+            LocalTime responseQuery = response.getBody().as(LocalTime.class);
+            localTime = convertStrToZoneDate(responseQuery.getData().getTimeLocal());
+            zoneId = localTime.getZone();
+            }
+        else {
+            System.out.println("connection problem: " + response.statusCode());
+        }
+    }
+
+    public static ZonedDateTime convertStrToZoneDate (String string) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_TYPE, Locale.US);
+        return ZonedDateTime.parse(string, formatter);
     }
 }
