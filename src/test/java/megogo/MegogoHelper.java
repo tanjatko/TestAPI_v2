@@ -3,19 +3,20 @@ package megogo;
 import com.jayway.restassured.response.Response;
 import megogo.responseMegogoClasses.Program;
 import megogo.responseMegogoClasses.ResponseQuery;
+
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.jayway.restassured.RestAssured.get;
-import static megogo.ResponseLocalTimeHelper.getZoneId;
 
-public class ResponseMegogoHelper {
+public class MegogoHelper {
 
-    final static String FORMAT_TYPE = "MMM d, y h:mm:ss a";
+    private final String FORMAT_TYPE = "MMM d, y h:mm:ss a";
 
-    public static ArrayList<Program> getMegogoList(String urlStr) {
+    public ArrayList<Program> getMegogoList(String urlStr) {
         ArrayList<Program> programArrayList = null;
         Response response;
 
@@ -30,35 +31,35 @@ public class ResponseMegogoHelper {
         return programArrayList ;
     }
 
-    public static String getTitle(Program program) {
-        return program.getTitle();
+    public String getTitle(Program program) {
+            return program.getTitle();
     }
 
-    public static ZonedDateTime getStartTime(Program program) {
+    public ZonedDateTime getStartTime(Program program, ZoneId zoneId) {
         String startTimeStr = program.getStart();
-        return convertStrToZoneDate(startTimeStr);
+        return convertStrToZoneDate(startTimeStr, zoneId);
     }
 
-    public static ZonedDateTime getEndTime(Program program) {
+    public ZonedDateTime getEndTime(Program program, ZoneId zoneId) {
         String endTimeStr = program.getEnd();
-        return convertStrToZoneDate(endTimeStr);
+        return convertStrToZoneDate(endTimeStr, zoneId);
     }
 
-    public static String getDescription(Program program) {
+    public String getDescription(Program program) {
         return program.getDescription();
     }
 
-    public static String getGenre(Program program) {
+    public String getGenre(Program program) {
         if (program.getGenre().getTitle().equals("Другое")) {return null;}
         return program.getGenre().getTitle();
     }
 
-    public static String getYear(Program program){
+    public String getYear(Program program){
         return program.getYear();
     }
 
-    public static ZonedDateTime convertStrToZoneDate (String string) {
+    public ZonedDateTime convertStrToZoneDate (String string, ZoneId zoneId) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_TYPE, Locale.US);
-        return ZonedDateTime.parse(string, formatter.withZone(getZoneId()));
+        return ZonedDateTime.parse(string, formatter.withZone(zoneId));
     }
 }
