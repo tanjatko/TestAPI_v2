@@ -1,0 +1,190 @@
+{
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "result": {
+      "id": "/properties/result",
+      "type": "string"
+    },
+    "data": {
+      "id": "/properties/data",
+      "type": "array",
+      "items": {
+        "id": "/properties/data/items",
+        "type": "object",
+        "properties": {
+          "id": {
+            "id": "/properties/data/items/properties/id",
+            "type": "integer"
+          },
+          "external_id": {
+            "id": "/properties/data/items/properties/external_id",
+            "type": "integer"
+          },
+          "title": {
+            "id": "/properties/data/items/properties/title",
+            "type": "string"
+          },
+          "programs": {
+            "id": "/properties/data/items/properties/programs",
+            "type": "array",
+            "items": {
+              "id": "/properties/data/items/properties/programs/items",
+              "type": "object",
+              "properties": {
+                "external_id": {
+                  "id": "/properties/data/items/properties/programs/items/properties/external_id",
+                  "type": "integer"
+                },
+                "object_id": {
+                  "id": "/properties/data/items/properties/programs/items/properties/object_id",
+                  "type": "null"
+                },
+                "year": {
+                  "id": "/properties/data/items/properties/programs/items/properties/year",
+                  "type": ["string", "null"]
+                },
+                "title": {
+                  "id": "/properties/data/items/properties/programs/items/properties/title",
+                  "type": "string"
+                },
+                "description": {
+                  "id": "/properties/data/items/properties/programs/items/properties/description",
+                  "type": ["string", "null"]
+                },
+                "schedule_string": {
+                  "id": "/properties/data/items/properties/programs/items/properties/schedule_string",
+                  "type": "null"
+                },
+                "genre": {
+                  "id": "/properties/data/items/properties/programs/items/properties/genre",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "id": "/properties/data/items/properties/programs/items/properties/genre/properties/id",
+                      "type": "integer"
+                    },
+                    "external_id": {
+                      "id": "/properties/data/items/properties/programs/items/properties/genre/properties/external_id",
+                      "type": "integer"
+                    },
+                    "title": {
+                      "id": "/properties/data/items/properties/programs/items/properties/genre/properties/title",
+                      "type": "string"
+                    }
+                  }
+                },
+                "category": {
+                  "id": "/properties/data/items/properties/programs/items/properties/category",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "id": "/properties/data/items/properties/programs/items/properties/category/properties/id",
+                      "type": "integer"
+                    },
+                    "external_id": {
+                      "id": "/properties/data/items/properties/programs/items/properties/category/properties/external_id",
+                      "type": "integer"
+                    },
+                    "title": {
+                      "id": "/properties/data/items/properties/programs/items/properties/category/properties/title",
+                      "type": "string"
+                    }
+                  }
+                },
+                "pictures": {
+                  "id": "/properties/data/items/properties/programs/items/properties/pictures",
+                  "type": "object"
+                },
+                "virtual_object_id": {
+                  "id": "/properties/data/items/properties/programs/items/properties/virtual_object_id",
+                  "type": ["string", "null"]
+                },
+                "start": {
+                  "id": "/properties/data/items/properties/programs/items/properties/start",
+                  "type": "string"
+                },
+                "start_timestamp": {
+                  "id": "/properties/data/items/properties/programs/items/properties/start_timestamp",
+                  "type": "integer"
+                },
+                "end": {
+                  "id": "/properties/data/items/properties/programs/items/properties/end",
+                  "type": "string"
+                },
+                "end_timestamp": {
+                  "id": "/properties/data/items/properties/programs/items/properties/end_timestamp",
+                  "type": "integer"
+                },
+                "grouped_programs": {
+                  "id": "/properties/data/items/properties/programs/items/properties/grouped_programs",
+                  "type": "null"
+                },
+                "schedule_type": {
+                  "id": "/properties/data/items/properties/programs/items/properties/schedule_type",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "pictures": {
+            "id": "/properties/data/items/properties/pictures",
+            "type": "object",
+            "properties": {
+              "original": {
+                "id": "/properties/data/items/properties/pictures/properties/original",
+                "type": "string"
+              },
+              "105x85": {
+                "id": "/properties/data/items/properties/pictures/properties/105x85",
+                "type": "string"
+              },
+              "monochrome_logo": {
+                "id": "/properties/data/items/properties/pictures/properties/monochrome_logo",
+                "type": "string"
+              },
+              "180x180": {
+                "id": "/properties/data/items/properties/pictures/properties/180x180",
+                "type": "string"
+              },
+              "980x560": {
+                "id": "/properties/data/items/properties/pictures/properties/980x560",
+                "type": "string"
+              },
+              "88x65": {
+                "id": "/properties/data/items/properties/pictures/properties/88x65",
+                "type": "string"
+              },
+              "88x88": {
+                "id": "/properties/data/items/properties/pictures/properties/88x88",
+                "type": "string"
+              },
+              "105x105": {
+                "id": "/properties/data/items/properties/pictures/properties/105x105",
+                "type": "string"
+              },
+              "40x40": {
+                "id": "/properties/data/items/properties/pictures/properties/40x40",
+                "type": "string"
+              },
+              "150x150": {
+                "id": "/properties/data/items/properties/pictures/properties/150x150",
+                "type": "string"
+              },
+              "1600x520": {
+                "id": "/properties/data/items/properties/pictures/properties/1600x520",
+                "type": "string"
+              }
+            }
+          },
+          "video_id": {
+            "id": "/properties/data/items/properties/video_id",
+            "type": "null"
+          }
+        }
+      }
+    }
+  }
+}
+
