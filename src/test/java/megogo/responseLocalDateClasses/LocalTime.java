@@ -1,15 +1,8 @@
 package megogo.responseLocalDateClasses;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class LocalTime {
 
-    @SerializedName("result")
-    @Expose
     private String result;
-    @SerializedName("data")
-    @Expose
     private Data data;
 
     public String getResult() {
@@ -21,8 +14,7 @@ public class LocalTime {
     }
 
     public Data getData() {
-        return data;
-    }
+        return data;}
 
     public void setData(Data data) {
         this.data = data;

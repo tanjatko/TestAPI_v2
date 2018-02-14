@@ -1,5 +1,6 @@
 package megogo;
 
+import io.restassured.response.Response;
 import megogo.responseMegogoClasses.Program;
 import megogo.responseProviderClasses.Programme;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import java.io.FileInputStream;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -23,6 +25,7 @@ public class TestMegogo {
     LocalTimeHelper localTimeHelper = null;
     ProviderHelper providerHelper = null;
     MegogoHelper megogoHelper = null;
+    Response megogoResponse = null;
     ArrayList<Program> programMegogoList = null;
     List<Programme> programProviderList =null;
     String urlMegogo = null;
@@ -53,7 +56,6 @@ public class TestMegogo {
         @Before
         public void startUp() throws Exception {
             logger = LoggerFactory.getLogger(TestMegogo.class);
-
             localTimeHelper = new LocalTimeHelper();
             providerHelper = new ProviderHelper();
             megogoHelper = new MegogoHelper();
@@ -68,6 +70,8 @@ public class TestMegogo {
             urlProvider = properties.getProperty("providerURL");
             urlLocalTime = properties.getProperty("localTimeURL");
 
+            megogoHelper.setResponse(urlMegogo + megogoNumber);
+            megogoResponse = megogoHelper.getResponse();
             localTimeHelper.setLocalTime(urlLocalTime);
             localTime = localTimeHelper.getLocalTime();
         }
@@ -75,9 +79,9 @@ public class TestMegogo {
         @Test
         public void testTVProgram() {
             logger.info("-----------------------------------");
-            logger.info("channel name: {}", channelName);
             logger.info("{} is started", Thread.currentThread().getStackTrace()[1].getMethodName());
-            programMegogoList = megogoHelper.getMegogoList(urlMegogo + megogoNumber);
+            logger.info("channel name: {}", channelName);
+            programMegogoList = megogoHelper.getMegogoList(megogoResponse);
             programProviderList = providerHelper.getProviderList(urlProvider + providerNumber + ".xml", localTime);
 
             logger.debug("programMegogoList size: {}", programMegogoList.size());
@@ -90,9 +94,7 @@ public class TestMegogo {
             assertEquals(programProviderList.size(), programMegogoList.size());
             logger.info("programMegogoList is equal to programProviderList -> ok");
 
-
-            for (int i =0; i<  programProviderList.size(); i++)
-            {
+            for (int i =0; i<  programProviderList.size(); i++) {
                 logger.info("checking item {} ...", i);
                 Programme programProvider = programProviderList.get(i);
                 Program programMegogo = programMegogoList.get(i);
@@ -104,5 +106,15 @@ public class TestMegogo {
                 assertEquals(providerHelper.getYear(programProvider), megogoHelper.getYear(programMegogo));
                 logger.info("title, startTime, endTime, description, genre and year are ok");
             }
+        }
+
+        @Test
+        public void validateMegogoSchema(){
+            logger.info("-----------------------------------");
+            logger.info("{} is started", Thread.currentThread().getStackTrace()[1].getMethodName());
+            File file = new File("src/test/resources/json_schema");
+            assertEquals(megogoResponse.statusCode(), 200);
+            megogoResponse.then().assertThat().body(matchesJsonSchema(file));
+            logger.info("schema is ok");
         }
 }

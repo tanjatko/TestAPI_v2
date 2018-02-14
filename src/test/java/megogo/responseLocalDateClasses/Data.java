@@ -1,28 +1,16 @@
 package megogo.responseLocalDateClasses;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
 
-        @SerializedName("timestamp")
-        @Expose
         private Integer timestamp;
-        @SerializedName("time_local")
-        @Expose
         private String timeLocal;
-        @SerializedName("utc_offset")
-        @Expose
         private Integer utcOffset;
-        @SerializedName("timestamp_local")
-        @Expose
         private Integer timestampLocal;
-        @SerializedName("timestamp_gmt")
-        @Expose
         private Integer timestampGmt;
-        @SerializedName("timezone")
-        @Expose
         private String timezone;
 
         public Integer getTimestamp() {
@@ -32,7 +20,7 @@ public class Data {
         public void setTimestamp(Integer timestamp) {
             this.timestamp = timestamp;
         }
-
+        @JsonGetter("time_local")
         public String getTimeLocal() {
             return timeLocal;
         }

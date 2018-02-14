@@ -1,26 +1,30 @@
 package megogo;
 
-import com.jayway.restassured.response.Response;
+import io.restassured.response.Response;
 import megogo.responseMegogoClasses.Program;
 import megogo.responseMegogoClasses.ResponseQuery;
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.jayway.restassured.RestAssured.get;
+import static io.restassured.RestAssured.get;
 
 public class MegogoHelper {
 
     private final String FORMAT_TYPE = "MMM d, y h:mm:ss a";
+    private Response response;
 
-    public ArrayList<Program> getMegogoList(String urlStr) {
-        ArrayList<Program> programArrayList = null;
-        Response response;
-
+    public void setResponse(String urlStr) {
         response = get(urlStr);
+    }
+    public Response getResponse() {
+        return response;
+    }
+
+    public ArrayList<Program> getMegogoList(Response response) {
+        ArrayList<Program> programArrayList = null;
         if ((response.statusCode()==200)) {
             ResponseQuery responseQuery = response.getBody().as(ResponseQuery.class);
             programArrayList = (ArrayList<Program>) responseQuery.getData().get(0).getPrograms();

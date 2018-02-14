@@ -1,13 +1,13 @@
 package megogo;
 
-import com.jayway.restassured.response.Response;
+import io.restassured.response.Response;
 import megogo.responseProviderClasses.Programme;
 import megogo.responseProviderClasses.Tv;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.jayway.restassured.RestAssured.get;
+import static io.restassured.RestAssured.get;
 
 public class ProviderHelper {
 
@@ -60,7 +60,7 @@ public class ProviderHelper {
         return programme.getProduction_year();
     }
 
-    public  ZonedDateTime convertStrToZoneDate (String string) {
+    private  ZonedDateTime convertStrToZoneDate (String string) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_TYPE, Locale.US);
         return ZonedDateTime.parse(string, formatter);
     }

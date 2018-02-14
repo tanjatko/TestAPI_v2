@@ -1,18 +1,14 @@
 
 package megogo.responseMegogoClasses;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseQuery {
 
-    @SerializedName("result")
-    @Expose
     private String result;
-    @SerializedName("data")
-    @Expose
     private List<Datum> data = null;
 
     public String getResult() {

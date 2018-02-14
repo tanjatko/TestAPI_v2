@@ -1,58 +1,25 @@
 
 package megogo.responseMegogoClasses;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Program {
 
-    @SerializedName("external_id")
-    @Expose
     private Integer externalId;
-    @SerializedName("object_id")
-    @Expose
     private Object objectId;
-    @SerializedName("year")
-    @Expose
     private String year;
-    @SerializedName("title")
-    @Expose
     private String title;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("schedule_string")
-    @Expose
     private Object scheduleString;
-    @SerializedName("genre")
-    @Expose
     private Genre genre;
-    @SerializedName("category")
-    @Expose
     private Category category;
-    @SerializedName("pictures")
-    @Expose
-    private Pictures pictures;
-    @SerializedName("virtual_object_id")
-    @Expose
     private String virtualObjectId;
-    @SerializedName("start")
-    @Expose
     private String start;
-    @SerializedName("start_timestamp")
-    @Expose
     private Integer startTimestamp;
-    @SerializedName("end")
-    @Expose
     private String end;
-    @SerializedName("end_timestamp")
-    @Expose
     private Integer endTimestamp;
-    @SerializedName("grouped_programs")
-    @Expose
     private Object groupedPrograms;
-    @SerializedName("schedule_type")
-    @Expose
     private String scheduleType;
 
     public Integer getExternalId() {
@@ -117,14 +84,6 @@ public class Program {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Pictures getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(Pictures pictures) {
-        this.pictures = pictures;
     }
 
     public String getVirtualObjectId() {

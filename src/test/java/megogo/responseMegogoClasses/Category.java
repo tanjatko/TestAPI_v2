@@ -1,19 +1,13 @@
 
 package megogo.responseMegogoClasses;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Category {
 
-    @SerializedName("id")
-    @Expose
     private Integer id;
-    @SerializedName("external_id")
-    @Expose
     private Integer externalId;
-    @SerializedName("title")
-    @Expose
     private String title;
 
     public Integer getId() {
